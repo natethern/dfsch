@@ -305,8 +305,8 @@ udata-gen$(EXEEXT): $(srcdir)/src/udata-gen.c
 	$(CC_FOR_BUILD) -I$(srcdir) -o udata-gen$(EXEEXT) $(srcdir)/src/udata-gen.c
 
 boot-source-tool$(EXEEXT): $(srcdir)/src/source-tool.c
-	$(CC_FOR_BUILD) -I$(srcdir) -o boot-source-tool$(EXEEXT) -lz -lgc \
-	-DPACKAGE_VERSION=\"\" $(srcdir)/src/source-tool.c
+	$(CC_FOR_BUILD) -I$(srcdir) -o boot-source-tool$(EXEEXT) \
+	-DPACKAGE_VERSION=\"\" $(srcdir)/src/source-tool.c -lz -lgc
 
 fastlz_files = 	ext/fastlz/LICENSE \
 	ext/fastlz/README.TXT \
@@ -344,6 +344,7 @@ EXTRA_DIST = tests/scm-test.sh tests/scm-test-interp.sh tests/interp-test.scm \
 
 
 libdfsch_la_LDFLAGS = -version-info 5:0:0 -no-undefined
+LDFLAGS = -Wl,--allow-multiple-definition
 if WIN32
 libdfsch_la_LIBADD =  -lgc -lpthreadGC2 -lm -lz
 pthread_libadd = -lpthreadGC2
